@@ -2,10 +2,6 @@ import css from './ImageGalleryItem.module.css';
 import propTypes from 'prop-types';
 
 export const ImageGalleryItem = ({ image, openModal }) => {
-  // render() {
-  //   const { largeImageURL, tags, webformatURL } = this.props.image;
-  //   const { openModal } = this.props;
-
   return (
     <li
       className={css.gallery_item}
@@ -21,7 +17,6 @@ export const ImageGalleryItem = ({ image, openModal }) => {
     </li>
   );
 };
-// };
 
 ImageGalleryItem.propTypes = {
   image: propTypes.shape({
@@ -29,4 +24,5 @@ ImageGalleryItem.propTypes = {
     largeImageURL: propTypes.string.isRequired,
     tags: propTypes.string.isRequired,
   }).isRequired,
+  openModal: propTypes.func.isRequired,
 };

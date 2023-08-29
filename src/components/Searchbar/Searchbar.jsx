@@ -1,47 +1,41 @@
-import { Component } from 'react';
 import css from './Searchbar.module.css';
 import propTypes from 'prop-types';
+import { useState } from 'react';
 import { FcSearch } from 'react-icons/fc';
 
-export class Searchbar extends Component {
-  state = {
-    search: '',
-    value: '',
+export const Searchbar = ({ onSubmit }) => {
+  const [value, setValue] = useState('');
+
+  const hendleChange = e => {
+    setValue(e.target.value);
   };
 
-  hendleChange = e => {
-    this.setState({ value: e.target.value });
-  };
-
-  hendleSubmit = e => {
+  const hendleSubmit = e => {
     e.preventDefault();
-    const searchQuery = e.target.elements.searchName.value.trim();
-    this.props.onSubmit(searchQuery);
-    this.setState({ search: '' });
+    onSubmit(value.trim());
+    setValue('');
   };
 
-  render() {
-    return (
-      <header>
-        <form className={css.form} onSubmit={this.hendleSubmit}>
-          <button type="submit" className={css.button}>
-            <FcSearch />
-            <span className={css.button_label}>Search</span>
-          </button>
+  return (
+    <header>
+      <form className={css.form} onSubmit={hendleSubmit}>
+        <button type="submit" className={css.button}>
+          <FcSearch />
+          <span className={css.button_label}>Search</span>
+        </button>
 
-          <input
-            name="searchName"
-            className={css.input}
-            type="text"
-            onChange={this.hendleChange}
-            value={this.state.value}
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
-  }
-}
+        <input
+          name="searchName"
+          className={css.input}
+          type="text"
+          onChange={hendleChange}
+          value={value}
+          placeholder="Search images and photos"
+        />
+      </form>
+    </header>
+  );
+};
 
 Searchbar.propTypes = {
   onSubmit: propTypes.func.isRequired,
